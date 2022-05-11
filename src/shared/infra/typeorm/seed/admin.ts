@@ -12,6 +12,8 @@ async function create() {
   await connection.query(`
      insert into users (id, name, email, password, admin, created_at, driver_license)
      values('${id}', 'admin', 'admin@rentapi.com', '${password}', true, 'now()', 'XXXXXX')`);
+
+  await connection.close;
 }
 
 create().then(() => console.log("User admin created"));
