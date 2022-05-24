@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 
-interface IRequestBody {
+interface IRequest {
   brand?: string;
   category_id?: string;
   name?: string;
@@ -15,7 +15,7 @@ class ListAvailableCarsUseCase {
     @inject("CarsRepository")
     private carsRepository: ICarsRepository
   ) {}
-  async execute({ brand, category_id, name }: IRequestBody): Promise<Car[]> {
+  async execute({ brand, category_id, name }: IRequest): Promise<Car[]> {
     const cars = this.carsRepository.listAllAvailable(brand, category_id, name);
 
     return cars;

@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { ICategoriesRepository } from "@modules/cars/repositories/ICategoriesRepository";
 import { AppError } from "@shared/errors/AppError";
 
-interface IRequestBody {
+interface IRequest {
   name: string;
   description: string;
 }
@@ -15,7 +15,7 @@ class CreateCategoryUseCase {
     private categoriesRepository: ICategoriesRepository
   ) {}
 
-  async execute({ name, description }: IRequestBody): Promise<void> {
+  async execute({ name, description }: IRequest): Promise<void> {
     const categoryAlreryExists = await this.categoriesRepository.findByName(
       name
     );

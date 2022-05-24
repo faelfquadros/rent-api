@@ -3,7 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { ISpecificationsRepository } from "@modules/cars/repositories/ISpecificationsRepository";
 import { AppError } from "@shared/errors/AppError";
 
-interface IRequestBody {
+interface IRequest {
   name: string;
   description: string;
 }
@@ -14,7 +14,7 @@ class CreateSpecificationsUseCase {
     @inject("SpecificationsRepository")
     private specificationsRepository: ISpecificationsRepository
   ) {}
-  async execute({ name, description }: IRequestBody): Promise<void> {
+  async execute({ name, description }: IRequest): Promise<void> {
     const specification = await this.specificationsRepository.findByName(name);
 
     if (specification) {
