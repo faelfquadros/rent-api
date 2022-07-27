@@ -31,15 +31,15 @@ describe("Create New Category", () => {
   });
 
   it("should not be able to create the same category", async () => {
-    expect(async () => {
-      const category: ICreateCategoryDTO = {
-        name: "Test Category",
-        description: "Test Description",
-      };
+    const category: ICreateCategoryDTO = {
+      name: "Test Category",
+      description: "Test Description",
+    };
 
-      await createCategoryUseCase.execute(category);
+    await createCategoryUseCase.execute(category);
 
-      await createCategoryUseCase.execute(category);
-    }).rejects.toBeInstanceOf(AppError);
+    await expect(createCategoryUseCase.execute(category)).rejects.toEqual(
+      new AppError("Category Alreary Exists!", 409)
+    );
   });
 });

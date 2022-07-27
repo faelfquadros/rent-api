@@ -29,18 +29,18 @@ describe("Create car", () => {
   });
 
   it("shoud not be able to create a car with the same license plate", async () => {
-    expect(async () => {
-      await createCarUseCase.execute({
-        name: "Fusca",
-        description: "Carro de luxo",
-        daily_rate: 100,
-        license_plate: "ABC-1234",
-        fine_amount: 10,
-        brand: "VW",
-        category_id: "49d957ac-d452-4cc0-bfd6-a4a2ab784424",
-      });
+    await createCarUseCase.execute({
+      name: "Fusca",
+      description: "Carro de luxo",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 10,
+      brand: "VW",
+      category_id: "49d957ac-d452-4cc0-bfd6-a4a2ab784424",
+    });
 
-      await createCarUseCase.execute({
+    await expect(
+      createCarUseCase.execute({
         name: "Fusca 2",
         description: "Carro de luxo",
         daily_rate: 100,
@@ -48,8 +48,8 @@ describe("Create car", () => {
         fine_amount: 10,
         brand: "VW",
         category_id: "49d957ac-d452-4cc0-bfd6-a4a2ab784424",
-      });
-    }).rejects.toBeInstanceOf(AppError);
+      })
+    ).rejects.toEqual(new AppError("Car already exists"));
   });
 
   it("shoud create a car with availability", async () => {
