@@ -10,7 +10,7 @@ import uploadConfig from "../../../../config/upload";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
-const uploadCategories = multer(uploadConfig.upload("./tmp"));
+const uploadCategories = multer(uploadConfig);
 
 const categoriesRoutes = Router();
 

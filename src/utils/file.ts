@@ -1,10 +1,10 @@
-import fs from "fs";
+import { stat, unlink } from "fs/promises";
 
 export default async function deleteFile(filePath: string): Promise<void> {
   try {
-    await fs.promises.stat(filePath);
+    await stat(filePath);
   } catch (error) {
     return;
   }
-  await fs.promises.unlink(filePath);
+  await unlink(filePath);
 }
