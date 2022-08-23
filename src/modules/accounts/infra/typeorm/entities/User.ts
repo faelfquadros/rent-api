@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-expressions */
+import { Expose } from "class-transformer";
 import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
@@ -32,6 +35,18 @@ class User {
 
   @CreateDateColumn()
   created_at: Date;
+
+  @Expose({ name: "avatar_url" })
+  avatar_url(): string {
+    switch (process.env.disk) {
+      case "local":
+        return `${process.env.API_URL}/avatar/${this.avatar}`;
+      case "s3":
+        return `${process.env.AWS_BUCKET_URL}/avatar/${this.avatar}`;
+      default:
+        null;
+    }
+  }
 }
 
 export { User };
