@@ -1,6 +1,8 @@
 node_modules
 yarn.lock
 coverage
-tmp
+tmp/*
+!tmp/.gitkeep
 dist
 .env
+ormconfig.json
