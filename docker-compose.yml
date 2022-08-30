@@ -14,15 +14,20 @@ services:
     volumes:
       - pgdata:/data/postgres
     network_mode: "host"
-  app:
-    build: .
-    container_name: rent-api
-    restart: always
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/usr/app
-    network_mode: "host"
+
+  redis:
+    image: redis:alpine
+    ports: ["6379:6379"]
+
+  # app:
+  #   build: .
+  #   container_name: rent-api
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/usr/app
+  #   network_mode: "host"
 
 volumes:
   pgdata:
